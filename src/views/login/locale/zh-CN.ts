@@ -1,5 +1,7 @@
 export default {
-  'login.form.title': '登录 Arco Design Pro',
+  'login.title': '智慧党建',
+  'login.tip.link': '备案号：津ICP备15002285号-3',
+  'login.form.title': '登录智慧党建系统',
   'login.form.userName.errMsg': '用户名不能为空',
   'login.form.password.errMsg': '密码不能为空',
   'login.form.login.errMsg': '登录出错，轻刷新重试',

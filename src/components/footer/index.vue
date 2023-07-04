@@ -1,5 +1,18 @@
 <template>
-  <a-layout-footer class="footer">Arco Pro</a-layout-footer>
+  <a-layout-footer class="footer">
+    <div>
+      <a-space>
+        <a-link
+          href="https://beian.miit.gov.cn/"
+          icon
+          target="_blank"
+          :hoverable="false"
+          :style="{ color: '#fff' }"
+          >{{ $t('login.tip.link') }}</a-link
+        >
+      </a-space>
+    </div>
+  </a-layout-footer>
 </template>
 
 <script lang="ts" setup></script>
@@ -9,7 +22,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
+    height: 50px;
     color: var(--color-text-2);
     text-align: center;
   }

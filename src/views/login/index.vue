@@ -1,13 +1,10 @@
 <template>
   <div class="container">
     <div class="logo">
-      <img
-        alt="logo"
-        src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"
-      />
-      <div class="logo-text">Arco Design Pro</div>
+      <img alt="logo" src="@/assets/favicon.png" />
+      <div class="logo-text">{{ $t('login.title') }}</div>
     </div>
-    <LoginBanner />
+    <!-- <LoginBanner /> -->
     <div class="content">
       <div class="content-inner">
         <LoginForm />
@@ -42,10 +39,15 @@
       align-items: center;
       justify-content: center;
       padding-bottom: 40px;
+      background: url('@/assets/images/login-left-bg3.png');
     }
-
+    .content-inner {
+      background-color: white;
+      padding: 50px;
+    }
     .footer {
       position: absolute;
+      margin-bottom: 20px;
       right: 0;
       bottom: 0;
       width: 100%;
