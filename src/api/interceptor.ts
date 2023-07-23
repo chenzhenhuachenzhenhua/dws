@@ -21,6 +21,7 @@ axios.interceptors.request.use(
     // this example using the JWT token
     // Authorization is a custom headers key
     // please modify it according to the actual situation
+    console.log('拦截器', 'request', config);
     const token = getToken();
     if (token) {
       if (!config.headers) {
@@ -38,6 +39,7 @@ axios.interceptors.request.use(
 // add response interceptors
 axios.interceptors.response.use(
   (response: AxiosResponse<HttpResponse>) => {
+    console.log('拦截器', 'response', response);
     const res = response.data;
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 20000) {

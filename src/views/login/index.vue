@@ -4,7 +4,6 @@
       <img alt="logo" src="@/assets/favicon.png" />
       <div class="logo-text">{{ $t('login.title') }}</div>
     </div>
-    <!-- <LoginBanner /> -->
     <div class="content">
       <div class="content-inner">
         <LoginForm />
@@ -18,7 +17,6 @@
 
 <script lang="ts" setup>
   import Footer from '@/components/footer/index.vue';
-  import LoginBanner from './components/banner.vue';
   import LoginForm from './components/login-form.vue';
 </script>
 

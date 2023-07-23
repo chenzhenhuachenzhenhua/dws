@@ -6,9 +6,19 @@ export default mergeConfig(
   {
     mode: 'development',
     server: {
+      port: '3000',
       open: true,
       fs: {
         strict: true,
+      },
+      //反向代理
+      proxy: {
+        '/api': {
+          target: 'http://localhost:8080',
+          changeOrigin: true,
+          // 将api替换成''
+          // rewrite: (path) => path.replace(/^\/api/, ''),
+        },
       },
     },
     plugins: [
