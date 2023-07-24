@@ -3,7 +3,7 @@
   "colorWeak": false,
   "navbar": true,
   "menu": true,
-  "topMenu": true,
+  "topMenu": false,
   "hideMenu": false,
   "menuCollapse": false,
   "footer": true,
@@ -13,5 +13,6 @@
   "device": "desktop",
   "tabBar": false,
   "menuFromServer": false,
-  "serverMenu": []
+  "serverMenu": [],
+  "splitmenus":true
 }

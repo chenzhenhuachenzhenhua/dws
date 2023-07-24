@@ -17,7 +17,7 @@
       </a-space>
     </div>
     <div class="center-side">
-      <Menu v-if="topMenu" />
+      <Menu mode="horizontal" v-if="topMenu" />
     </div>
     <ul class="right-side">
       <li>
@@ -212,7 +212,8 @@
   const theme = computed(() => {
     return appStore.theme;
   });
-  const topMenu = computed(() => appStore.topMenu && appStore.menu);
+  // const topMenu = computed(() => appStore.topMenu && appStore.menu);
+  const topMenu = true;
   const isDark = useDark({
     selector: 'body',
     attribute: 'arco-theme',
@@ -318,4 +319,3 @@
     }
   }
 </style>
-

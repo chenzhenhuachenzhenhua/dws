@@ -8,3 +8,4 @@ export default {
     order: 9,
   },
 };
+// path: 'https://arco.design/vue/docs/pro/faq',

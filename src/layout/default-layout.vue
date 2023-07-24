@@ -18,7 +18,7 @@
           @collapse="setCollapsed"
         >
           <div class="menu-wrapper">
-            <Menu />
+            <Menu mode="vertical" />
           </div>
         </a-layout-sider>
         <a-drawer
