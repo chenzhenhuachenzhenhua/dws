@@ -1,8 +1,12 @@
 import localeMessageBox from '@/components/message-box/locale/zh-CN';
 import localeLogin from '@/views/login/locale/zh-CN';
 
-import localeWorkplace from '@/views/dashboard/workplace/locale/zh-CN';
+import localeManageOrganization from '@/views/manage/organization/locale/zh-CN';
+import localeManageMember from '@/views/manage/member/locale/zh-CN';
+import localePartyActivity from '@/views/party/activity/locale/zh-CN';
+import localeFeeManage from '@/views/party/fee/manage/locale/zh-CN';
 
+import localeWorkplace from '@/views/dashboard/workplace/locale/zh-CN';
 import localeMonitor from '@/views/dashboard/monitor/locale/zh-CN';
 
 import localeSearchTable from '@/views/list/search-table/locale/zh-CN';
@@ -29,6 +33,8 @@ import localeUserSetting from '@/views/user/setting/locale/zh-CN';
 import localeSettings from './zh-CN/settings';
 
 export default {
+  'menu.party': '组织管理',
+  // 下面不要增加,后期要删除
   'menu.dashboard': '仪表盘',
   'menu.server.dashboard': '仪表盘-服务端',
   'menu.server.workplace': '工作台-服务端',
@@ -44,11 +50,16 @@ export default {
   'menu.faq': '常见问题',
   'navbar.docs': '文档中心',
   'navbar.action.locale': '切换为中文',
+  ...localeManageOrganization,
+  ...localeManageMember,
+  ...localePartyActivity,
+  ...localeFeeManage,
+
+  // 下面不要放代码
   ...localeSettings,
   ...localeMessageBox,
   ...localeLogin,
   ...localeWorkplace,
-
   ...localeMonitor,
   ...localeSearchTable,
   ...localeCardList,

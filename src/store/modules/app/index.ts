@@ -53,6 +53,7 @@ const useAppStore = defineStore('app', {
           closable: true,
         });
         const { data } = await getMenuList();
+        console.log('getMenuList', data);
         this.serverMenu = data;
         notifyInstance = Notification.success({
           id: 'menuNotice',

@@ -99,67 +99,126 @@
         if (appStore.device === 'desktop')
           appStore.updateSettings({ menuCollapse: val });
       };
-      const renderSubMenu = () => {
+
+      const renderVerticalSubMenu = () => {
+        const filterMenu = menuTree.value.filter(
+          (item: any) => item.name === currentKey.value
+        );
+        console.log('filterMenu', filterMenu);
+
         function travel(_route: RouteRecordRaw[], nodes = []) {
+          // console.log('t1', _route);
           if (_route) {
-            if (props.mode === 'horizontal') {
-              _route.forEach((element) => {
-                // This is demo, modify nodes as needed
-                const icon = element?.meta?.icon
-                  ? () => h(compile(`<${element?.meta?.icon}/>`))
-                  : null;
-                // title: () => h(compile(t(element?.meta?.locale || ''))),
-                const node = (
+            _route.forEach((element) => {
+              // This is demo, modify nodes as needed
+              const icon = element?.meta?.icon
+                ? () => h(compile(`<${element?.meta?.icon}/>`))
+                : null;
+              // title: () => h(compile(t(element?.meta?.locale || ''))),
+              const node =
+                element?.children && element?.children.length !== 0 ? (
+                  <a-sub-menu
+                    key={element?.name}
+                    v-slots={{
+                      icon,
+                      title: () => h(compile(t(element?.meta?.locale || ''))),
+                    }}
+                  >
+                    {travel(element?.children)}
+                    {/* <>222</> */}
+                  </a-sub-menu>
+                ) : (
                   <a-menu-item
                     key={element?.name}
                     v-slots={{ icon }}
-                    onClick={() => {
-                      selectedKey.value = [
-                        element?.children?.[0].name as string,
-                      ];
-                      console.log('点击父亲', selectedKey.value);
-
-                      goto(element?.children?.[0] as RouteRecordRaw);
-                    }}
+                    onClick={() => goto(element)}
                   >
                     {t(element?.meta?.locale || '')}
                   </a-menu-item>
                 );
-                nodes.push(node as never);
-              });
-              // return nodes;
-            } else {
-              _route.forEach((element) => {
-                // This is demo, modify nodes as needed
-                // 只渲染自己这部分
-                if (currentKey.value === element.name) {
-                  element?.children?.forEach((childrenElement) => {
-                    // This is demo, modify nodes as needed
-                    const childrenIcon = childrenElement?.meta?.icon
-                      ? () => h(compile(`<${childrenElement?.meta?.icon}/>`))
-                      : null;
-                    const node = (
-                      <a-menu-item
-                        key={childrenElement?.name}
-                        v-slots={{ childrenIcon }}
-                        onClick={() => goto(childrenElement)}
-                      >
-                        {t(childrenElement?.meta?.locale || '')}
-                      </a-menu-item>
-                    );
-                    nodes.push(node as never);
-                  });
-                  // return nodes;
-                }
-              });
-            }
+              nodes.push(node as never);
+            });
+          }
+          return nodes;
+        }
+        if (filterMenu && filterMenu.length > 0) {
+          return travel(filterMenu[0].children);
+        }
+        return travel(menuTree.value);
+      };
+      const renderHorizontalSubMenu = () => {
+        function travel(_route: RouteRecordRaw[], nodes = []) {
+          if (_route) {
+            _route.forEach((element) => {
+              // This is demo, modify nodes as needed
+              const icon = element?.meta?.icon
+                ? () => h(compile(`<${element?.meta?.icon}/>`))
+                : null;
+              // title: () => h(compile(t(element?.meta?.locale || ''))),
+              const node = (
+                <a-menu-item
+                  key={element?.name}
+                  v-slots={{ icon }}
+                  onClick={() => {
+                    selectedKey.value = [element?.children?.[0].name as string];
+                    goto(element?.children?.[0] as RouteRecordRaw);
+                  }}
+                >
+                  {t(element?.meta?.locale || '')}
+                </a-menu-item>
+              );
+              nodes.push(node as never);
+            });
           }
           return nodes;
         }
         return travel(menuTree.value);
       };
-
-      // const renderSubMenu = () => {
+      const renderSubMenu = () => {
+        if (props.mode === 'horizontal') {
+          return renderHorizontalSubMenu();
+        }
+        return renderVerticalSubMenu();
+      };
+      const renderSubMenu1 = () => {
+        function travel(_route: RouteRecordRaw[], nodes = []) {
+          if (_route) {
+            _route.forEach((element) => {
+              // This is demo, modify nodes as needed
+              const icon = element?.meta?.icon
+                ? () => h(compile(`<${element?.meta?.icon}/>`))
+                : null;
+              // title: () => h(compile(t(element?.meta?.locale || ''))),
+              const node =
+                element?.children && element?.children.length !== 0 ? (
+                  <a-sub-menu
+                    key={element?.name}
+                    v-slots={{
+                      icon,
+                      'title': '',
+                      'expand-icon-down': '',
+                    }}
+                  >
+                    {travel(element?.children)}
+                    {/* <>222</> */}
+                  </a-sub-menu>
+                ) : (
+                  <a-menu-item
+                    key={element?.name}
+                    v-slots={{ icon }}
+                    onClick={() => goto(element)}
+                  >
+                    {t(element?.meta?.locale || '')}
+                  </a-menu-item>
+                );
+              nodes.push(node as never);
+            });
+          }
+          return nodes;
+        }
+        return travel(menuTree.value);
+      };
+      // const renderSubMenu1 = () => {
       //   function travel(_route: RouteRecordRaw[], nodes = []) {
       //     if (_route) {
       //       _route.forEach((element) => {
@@ -197,7 +256,6 @@
       //   }
       //   return travel(menuTree.value);
       // };
-
       return () => (
         <a-menu
           mode={props.mode}
@@ -219,7 +277,25 @@
     },
   });
 </script>
-
+<!-- if (currentKey.value === element.name) {
+  element?.children?.forEach((childrenElement) => {
+    // This is demo, modify nodes as needed
+    const childrenIcon = childrenElement?.meta?.icon
+      ? () => h(compile(`<${childrenElement?.meta?.icon}/>`))
+      : null;
+    const node = (
+      <a-menu-item
+        key={childrenElement?.name}
+        v-slots={{ childrenIcon }}
+        onClick={() => goto(childrenElement)}
+      >
+        {t(childrenElement?.meta?.locale || '')}
+      </a-menu-item>
+    );
+    nodes.push(node as never);
+  });
+  // return nodes;
+} -->
 <style lang="less" scoped>
   :deep(.arco-menu-inner) {
     .arco-menu-inline-header {
