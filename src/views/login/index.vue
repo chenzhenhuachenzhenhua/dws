@@ -1,17 +1,23 @@
 <template>
   <div class="container">
-    <div class="logo">
-      <img alt="logo" src="@/assets/favicon.png" />
-      <div class="logo-text">{{ $t('login.title') }}</div>
-    </div>
-    <div class="content">
+    <a-layout-content>
+      <div class="content">
+        <!-- <img
+          style="width: 320px; height: 290px"
+          alt="logo"
+          src="@/assets/images/emblem.png"
+        /> -->
+        <!-- <div class="logo-text">党务工作管理平台</div> -->
+      </div>
+    </a-layout-content>
+    <a-layout-content>
       <div class="content-inner">
         <LoginForm />
       </div>
-      <div class="footer">
-        <Footer />
-      </div>
-    </div>
+    </a-layout-content>
+    <a-layout-footer>
+      <div class="footer"> <Footer /> </div
+    ></a-layout-footer>
   </div>
 </template>
 
@@ -24,28 +30,25 @@
   .container {
     display: flex;
     height: 100vh;
-
-    .banner {
-      width: 550px;
-      background: linear-gradient(163.85deg, #1d2129 0%, #00308f 100%);
-    }
-
+    background: url('@/assets/images/login-left-bg3.png');
+    background-size: 100% 100%;
+    justify-content: space-between;
+    align-items: center;
     .content {
-      position: relative;
       display: flex;
-      flex: 1;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
-      padding-bottom: 40px;
-      background: url('@/assets/images/login-left-bg3.png');
+      align-items: center;
     }
+
     .content-inner {
-      background-color: white;
-      padding: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .footer {
       position: absolute;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
       right: 0;
       bottom: 0;
       width: 100%;
@@ -65,6 +68,9 @@
       margin-left: 4px;
       color: var(--color-fill-1);
       font-size: 20px;
+      overflow-wrap: break-word;
+      font-family: MicrosoftYaHei;
+      font-weight: NaN;
     }
   }
 </style>

@@ -27,7 +27,8 @@ const MANAGE: AppRouteRecordRaw = {
         {
           path: 'statistics',
           name: 'statistics',
-          component: () => import('@/views/dashboard/workplace/index.vue'),
+          component: () =>
+            import('@/views/manage/organization/statistics/index.vue'),
           meta: {
             locale: 'menu.manage.organization.statistics',
             requiresAuth: true,
@@ -37,7 +38,7 @@ const MANAGE: AppRouteRecordRaw = {
         {
           path: 'orgInfo',
           name: 'orgInfo',
-          component: () => import('@/views/dashboard/monitor/index.vue'),
+          component: () => import('@/views/manage/member/query/index.vue'),
           meta: {
             locale: 'menu.manage.organization.info',
             requiresAuth: true,

@@ -7,6 +7,9 @@
           :style="{ margin: 0, fontSize: '18px' }"
           :heading="5"
         >
+          <!-- <span style="font-weight: 500; font-size: 20px; color: #fff">
+            党务工作平台
+          </span> -->
           党务工作平台
         </a-typography-title>
         <icon-menu-fold
@@ -266,6 +269,8 @@
     justify-content: space-between;
     height: 100%;
     background-color: var(--color-bg-2);
+    // background: url('@/assets/images/layout_mask.png');
+    background-size: 100% 100%;
     border-bottom: 1px solid var(--color-border);
   }
 

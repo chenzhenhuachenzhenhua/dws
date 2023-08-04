@@ -131,13 +131,15 @@
 <style lang="less" scoped>
   .login-form {
     &-wrapper {
+      padding: 40px;
       width: 320px;
+      background: white;
     }
 
     &-title {
       color: var(--color-text-1);
       font-weight: 500;
-      font-size: 24px;
+      font-size: 20px;
       line-height: 32px;
     }
 

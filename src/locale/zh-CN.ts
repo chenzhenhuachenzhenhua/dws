@@ -6,6 +6,7 @@ import localeManageMember from '@/views/manage/member/locale/zh-CN';
 import localePartyActivity from '@/views/party/activity/locale/zh-CN';
 import localeFeeManage from '@/views/party/fee/manage/locale/zh-CN';
 
+// 注释下面系统默认不要添加
 import localeWorkplace from '@/views/dashboard/workplace/locale/zh-CN';
 import localeMonitor from '@/views/dashboard/monitor/locale/zh-CN';
 

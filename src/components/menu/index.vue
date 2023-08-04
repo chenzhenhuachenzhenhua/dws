@@ -268,7 +268,7 @@
           auto-open-selected={true}
           level-indent={34}
           accordion={false}
-          style="height: 100%;width:100%;"
+          style="height: 100%;width:100%;background: transparent"
           onCollapse={setCollapse}
         >
           {renderSubMenu()}
