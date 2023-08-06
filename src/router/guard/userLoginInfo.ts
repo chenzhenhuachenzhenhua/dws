@@ -13,7 +13,8 @@ export default function setupUserLoginInfoGuard(router: Router) {
         next();
       } else {
         try {
-          await userStore.info();
+          // 暂时先注释掉
+          // await userStore.info();
           next();
         } catch (error) {
           await userStore.logout();

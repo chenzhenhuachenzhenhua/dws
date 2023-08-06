@@ -38,11 +38,12 @@ const MANAGE: AppRouteRecordRaw = {
         {
           path: 'orgInfo',
           name: 'orgInfo',
-          component: () => import('@/views/manage/member/query/index.vue'),
+          component: () =>
+            import('@/views/manage/organization/query/index.vue'),
           meta: {
             locale: 'menu.manage.organization.info',
             requiresAuth: true,
-            roles: ['admin'],
+            roles: ['*'],
           },
         },
       ],
