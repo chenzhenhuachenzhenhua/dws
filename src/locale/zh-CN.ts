@@ -3,8 +3,7 @@ import localeLogin from '@/views/login/locale/zh-CN';
 
 import localeManageOrganization from '@/views/manage/organization/locale/zh-CN';
 import localeManageMember from '@/views/manage/member/locale/zh-CN';
-import localePartyActivity from '@/views/party/activity/locale/zh-CN';
-import localeFeeManage from '@/views/party/fee/manage/locale/zh-CN';
+import localeParty from '@/views/party/locale/zh-CN';
 
 // 注释下面系统默认不要添加
 import localeWorkplace from '@/views/dashboard/workplace/locale/zh-CN';
@@ -53,8 +52,7 @@ export default {
   'navbar.action.locale': '切换为中文',
   ...localeManageOrganization,
   ...localeManageMember,
-  ...localePartyActivity,
-  ...localeFeeManage,
+  ...localeParty,
 
   // 下面不要放代码
   ...localeSettings,

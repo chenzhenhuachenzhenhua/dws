@@ -27,7 +27,7 @@ const MANAGE: AppRouteRecordRaw = {
         {
           path: 'feemanage',
           name: 'feemanage',
-          component: () => import('@/views/dashboard/workplace/index.vue'),
+          component: () => import('@/views/party/fee/index.vue'),
           meta: {
             locale: 'menu.party.fee.manage',
             requiresAuth: true,
