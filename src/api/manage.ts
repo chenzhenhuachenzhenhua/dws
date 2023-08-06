@@ -1,6 +1,7 @@
 import axios from 'axios';
 import qs from 'query-string';
 import type { DescData } from '@arco-design/web-vue/es/descriptions/interface';
+import { ApiUrl } from './api';
 
 export interface PolicyRecord {
   id: string;
@@ -22,17 +23,6 @@ export interface PolicyListRes {
   list: PolicyRecord[];
   total: number;
 }
-
-export function queryOrgList(params: PolicyParams) {
-  // return axios.get<PolicyListRes>('/api/admin/party/org/list', {
-  //   params,
-  //   paramsSerializer: (obj) => {
-  //     return qs.stringify(obj);
-  //   },
-  // });
-  return axios.post('/api/admin/party/org/list', { params });
-}
-
 export interface ServiceRecord {
   id: number;
   title: string;
@@ -54,4 +44,21 @@ export function queryTheServiceList() {
 
 export function queryRulesPresetList() {
   return axios.get('/api/list/rules-preset');
+}
+
+/**
+ *
+ * @param params 组织查询
+ * @returns
+ */
+export function queryOrgList(params: PolicyParams) {
+  return axios.post('/api/admin/party/org/list', { params });
+}
+/**
+ *
+ * @param params 组织单位查询
+ * @returns
+ */
+export function queryPartyUnitList(params: PolicyParams) {
+  return axios.post(ApiUrl.orgManage.queryPartyUnitList, { params });
 }

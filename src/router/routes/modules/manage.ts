@@ -38,10 +38,43 @@ const MANAGE: AppRouteRecordRaw = {
         {
           path: 'orgInfo',
           name: 'orgInfo',
-          component: () =>
-            import('@/views/manage/organization/query/index.vue'),
+          component: () => import('@/views/manage/organization/info/index.vue'),
           meta: {
             locale: 'menu.manage.organization.info',
+            requiresAuth: true,
+            roles: ['*'],
+          },
+        },
+        {
+          path: 'partyUnit', // 组织单位
+          name: 'partyUnit',
+          component: () =>
+            import('@/views/manage/organization/partyUnit/index.vue'),
+          meta: {
+            locale: 'menu.manage.organization.partyUnit',
+            requiresAuth: true,
+            roles: ['*'],
+          },
+        },
+
+        {
+          path: 'partyMove', // 组织转移
+          name: 'partyMove',
+          component: () =>
+            import('@/views/manage/organization/partyMove/index.vue'),
+          meta: {
+            locale: 'menu.manage.organization.partyMove',
+            requiresAuth: true,
+            roles: ['*'],
+          },
+        },
+        {
+          path: 'memorandum', // 党建记事本
+          name: 'memorandum',
+          component: () =>
+            import('@/views/manage/organization/memorandum/index.vue'),
+          meta: {
+            locale: 'menu.manage.organization.memorandum',
             requiresAuth: true,
             roles: ['*'],
           },

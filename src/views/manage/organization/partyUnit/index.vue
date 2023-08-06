@@ -252,7 +252,7 @@
   import { computed, ref, reactive, watch, nextTick } from 'vue';
   import { useI18n } from 'vue-i18n';
   import useLoading from '@/hooks/loading';
-  import { queryOrgList, PolicyRecord, PolicyParams } from '@/api/manage';
+  import { queryPartyUnitList, PolicyRecord, PolicyParams } from '@/api/manage';
   import { Pagination } from '@/types/global';
   import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
   import type {
@@ -400,10 +400,10 @@
   ) => {
     setLoading(true);
     try {
-      const { data } = await queryOrgList(params);
-      renderData.value = data;
-      // pagination.current = params.current;
-      // pagination.total = data.total;
+      const { data } = await queryPartyUnitList(params);
+      renderData.value = data.content;
+      pagination.current = params.current;
+      pagination.total = data.totalPages;
     } catch (err) {
       // you can report use errorHandler or other
     } finally {
