@@ -88,7 +88,7 @@ const MANAGE: AppRouteRecordRaw = {
     {
       path: 'member',
       name: 'member',
-      component: DEFAULT_LAYOUT,
+      component: DEFAULT_CHILD_LAYOUT,
       meta: {
         locale: 'menu.manage.member',
         requiresAuth: true,
