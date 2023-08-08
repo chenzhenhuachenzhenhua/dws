@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <a-card class="general-card" :title="$t('menu.manage.member.info.query')">
+    <Breadcrumb :items="['menu.list', 'menu.list.searchTable']" />
+    <a-card class="general-card" :title="$t('menu.list.searchTable')">
       <a-row>
         <a-col :flex="1">
           <a-form
@@ -185,7 +186,6 @@
       <a-table
         row-key="id"
         :loading="loading"
-        :row-selection="(rowSelection as TableRowSelection)"
         :pagination="pagination"
         :columns="(cloneColumns as TableColumnData[])"
         :data="renderData"
@@ -195,9 +195,6 @@
       >
         <template #index="{ rowIndex }">
           {{ rowIndex + 1 + (pagination.current - 1) * pagination.pageSize }}
-        </template>
-        <template #name="{ name }">
-          {{ name }}
         </template>
         <template #contentType="{ record }">
           <a-space>
@@ -252,24 +249,16 @@
   import { computed, ref, reactive, watch, nextTick } from 'vue';
   import { useI18n } from 'vue-i18n';
   import useLoading from '@/hooks/loading';
-  import { queryOrgList, PolicyRecord, PolicyParams } from '@/api/manage';
+  import { queryMemberList, PolicyRecord, PolicyParams } from '@/api/manage';
   import { Pagination } from '@/types/global';
   import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
-  import type {
-    TableColumnData,
-    TableRowSelection,
-  } from '@arco-design/web-vue/es/table/interface';
+  import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
   import cloneDeep from 'lodash/cloneDeep';
   import Sortable from 'sortablejs';
 
   type SizeProps = 'mini' | 'small' | 'medium' | 'large';
   type Column = TableColumnData & { checked?: true };
 
-  const rowSelection = reactive({
-    type: 'checkbox',
-    showCheckedAll: true,
-    onlyCurrent: false,
-  });
   const generateFormModel = () => {
     return {
       number: '',
@@ -316,17 +305,12 @@
   ]);
   const columns = computed<TableColumnData[]>(() => [
     {
-      title: t('manage.member.info.query.org'),
+      title: t('searchTable.columns.index'),
       dataIndex: 'index',
       slotName: 'index',
     },
     {
-      title: t('manage.member.info.query.org'),
-      dataIndex: 'name',
-      slotName: 'name',
-    },
-    {
-      title: t('manage.member.info.query.bus'),
+      title: t('searchTable.columns.number'),
       dataIndex: 'number',
     },
     {
@@ -400,10 +384,10 @@
   ) => {
     setLoading(true);
     try {
-      const { data } = await queryOrgList(params);
-      renderData.value = data;
-      // pagination.current = params.current;
-      // pagination.total = data.total;
+      const { data } = await queryMemberList(params);
+      renderData.value = data.list;
+      pagination.current = params.current;
+      pagination.total = data.total;
     } catch (err) {
       // you can report use errorHandler or other
     } finally {
@@ -501,7 +485,7 @@
 
 <style scoped lang="less">
   .container {
-    padding: 20px;
+    padding: 0 20px 20px 20px;
   }
   :deep(.arco-table-th) {
     &:last-child {
