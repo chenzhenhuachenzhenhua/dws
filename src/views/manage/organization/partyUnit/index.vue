@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <a-card class="general-card" :title="$t('menu.manage.member.info.query')">
+  <div v-show="!visible" class="container">
+    <a-card class="general-card" :title="'组织单位查询'">
       <a-row>
         <a-col :flex="1">
           <a-form
@@ -101,7 +101,7 @@
       <a-row style="margin-bottom: 16px">
         <a-col :span="12">
           <a-space>
-            <a-button type="primary">
+            <a-button type="primary" @click="handleCreate">
               <template #icon>
                 <icon-plus />
               </template>
@@ -193,51 +193,6 @@
         :size="size"
         @page-change="onPageChange"
       >
-        <template #index="{ rowIndex }">
-          {{ rowIndex + 1 + (pagination.current - 1) * pagination.pageSize }}
-        </template>
-        <template #name="{ name }">
-          {{ name }}
-        </template>
-        <template #contentType="{ record }">
-          <a-space>
-            <a-avatar
-              v-if="record.contentType === 'img'"
-              :size="16"
-              shape="square"
-            >
-              <img
-                alt="avatar"
-                src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/581b17753093199839f2e327e726b157.svg~tplv-49unhts6dw-image.image"
-              />
-            </a-avatar>
-            <a-avatar
-              v-else-if="record.contentType === 'horizontalVideo'"
-              :size="16"
-              shape="square"
-            >
-              <img
-                alt="avatar"
-                src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/77721e365eb2ab786c889682cbc721c1.svg~tplv-49unhts6dw-image.image"
-              />
-            </a-avatar>
-            <a-avatar v-else :size="16" shape="square">
-              <img
-                alt="avatar"
-                src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/ea8b09190046da0ea7e070d83c5d1731.svg~tplv-49unhts6dw-image.image"
-              />
-            </a-avatar>
-            {{ $t(`searchTable.form.contentType.${record.contentType}`) }}
-          </a-space>
-        </template>
-        <template #filterType="{ record }">
-          {{ $t(`searchTable.form.filterType.${record.filterType}`) }}
-        </template>
-        <template #status="{ record }">
-          <span v-if="record.status === 'offline'" class="circle"></span>
-          <span v-else class="circle pass"></span>
-          {{ $t(`searchTable.form.status.${record.status}`) }}
-        </template>
         <template #operations>
           <a-button v-permission="['admin']" type="text" size="small">
             {{ $t('searchTable.columns.operations.view') }}
@@ -246,6 +201,7 @@
       </a-table>
     </a-card>
   </div>
+  <div v-show="visible">测试</div>
 </template>
 
 <script lang="ts" setup>
@@ -288,7 +244,8 @@
   const showColumns = ref<Column[]>([]);
 
   const size = ref<SizeProps>('medium');
-
+  // 创建组织单位是否可见
+  const visible = ref(false);
   const basePagination: Pagination = {
     current: 1,
     pageSize: 20,
@@ -296,6 +253,17 @@
   const pagination = reactive({
     ...basePagination,
   });
+  // 新建
+  const handleCreate = () => {
+    // router.push({
+    //   name: (redirect as string) || 'statistics',
+    //   query: {
+    //     ...othersQuery,
+    //   },
+    // });
+    visible.value = true;
+  };
+
   const densityList = computed(() => [
     {
       name: t('searchTable.size.mini'),
@@ -316,44 +284,44 @@
   ]);
   const columns = computed<TableColumnData[]>(() => [
     {
-      title: t('manage.member.info.query.org'),
-      dataIndex: 'index',
-      slotName: 'index',
+      title: '所属组织名称',
+      dataIndex: 'partyName',
+      slotName: 'partyName',
     },
     {
-      title: t('manage.member.info.query.org'),
-      dataIndex: 'name',
-      slotName: 'name',
+      title: '单位名称',
+      dataIndex: 'unitName',
+      slotName: 'unitName',
     },
     {
-      title: t('manage.member.info.query.bus'),
-      dataIndex: 'number',
+      title: '单位所在组织属性',
+      dataIndex: 'property',
     },
     {
-      title: t('searchTable.columns.name'),
-      dataIndex: 'name',
+      title: '单位属性',
+      dataIndex: 'nature',
     },
     {
-      title: t('searchTable.columns.contentType'),
-      dataIndex: 'contentType',
-      slotName: 'contentType',
+      title: '所属行业',
+      dataIndex: 'industry',
+      slotName: 'industry',
     },
     {
-      title: t('searchTable.columns.filterType'),
-      dataIndex: 'filterType',
+      title: '单位类型',
+      dataIndex: 'companyId',
     },
     {
-      title: t('searchTable.columns.count'),
-      dataIndex: 'count',
+      title: '联系人',
+      dataIndex: 'contact',
     },
     {
-      title: t('searchTable.columns.createdTime'),
-      dataIndex: 'createdTime',
+      title: '联系电话',
+      dataIndex: 'cellphone',
     },
     {
-      title: t('searchTable.columns.status'),
-      dataIndex: 'status',
-      slotName: 'status',
+      title: '党员人数',
+      dataIndex: 'num',
+      slotName: 'num',
     },
     {
       title: t('searchTable.columns.operations'),

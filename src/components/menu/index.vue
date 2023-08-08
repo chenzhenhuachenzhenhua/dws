@@ -92,6 +92,7 @@
           selectedKey.value = menuOpenKeys;
           // 保存当前的父路由
           const key = menuOpenKeys[0];
+          // const key = newRoute.name as string;
           currentKey.value = key;
         }
       }, true);
@@ -104,10 +105,8 @@
         const filterMenu = menuTree.value.filter(
           (item: any) => item.name === currentKey.value
         );
-        console.log('filterMenu', filterMenu);
 
         function travel(_route: RouteRecordRaw[], nodes = []) {
-          // console.log('t1', _route);
           if (_route) {
             _route.forEach((element) => {
               // This is demo, modify nodes as needed
@@ -125,7 +124,6 @@
                     }}
                   >
                     {travel(element?.children)}
-                    {/* <>222</> */}
                   </a-sub-menu>
                 ) : (
                   <a-menu-item
@@ -160,8 +158,19 @@
                   key={element?.name}
                   v-slots={{ icon }}
                   onClick={() => {
-                    selectedKey.value = [element?.children?.[0].name as string];
-                    goto(element?.children?.[0] as RouteRecordRaw);
+                    console.log('element', element, element?.children?.[0]);
+                    console.log('elementchildren', element?.children?.[0]);
+                    let item = element;
+                    if (element.children && element.children.length > 0) {
+                      const children = element.children?.[0];
+                      if (children.children && children.children.length > 0) {
+                        item = children?.children[0];
+                      } else {
+                        item = element?.children[0];
+                      }
+                    }
+                    selectedKey.value = [item.name as string];
+                    goto(item as RouteRecordRaw);
                   }}
                 >
                   {t(element?.meta?.locale || '')}
@@ -180,44 +189,7 @@
         }
         return renderVerticalSubMenu();
       };
-      const renderSubMenu1 = () => {
-        function travel(_route: RouteRecordRaw[], nodes = []) {
-          if (_route) {
-            _route.forEach((element) => {
-              // This is demo, modify nodes as needed
-              const icon = element?.meta?.icon
-                ? () => h(compile(`<${element?.meta?.icon}/>`))
-                : null;
-              // title: () => h(compile(t(element?.meta?.locale || ''))),
-              const node =
-                element?.children && element?.children.length !== 0 ? (
-                  <a-sub-menu
-                    key={element?.name}
-                    v-slots={{
-                      icon,
-                      'title': '',
-                      'expand-icon-down': '',
-                    }}
-                  >
-                    {travel(element?.children)}
-                    {/* <>222</> */}
-                  </a-sub-menu>
-                ) : (
-                  <a-menu-item
-                    key={element?.name}
-                    v-slots={{ icon }}
-                    onClick={() => goto(element)}
-                  >
-                    {t(element?.meta?.locale || '')}
-                  </a-menu-item>
-                );
-              nodes.push(node as never);
-            });
-          }
-          return nodes;
-        }
-        return travel(menuTree.value);
-      };
+
       // const renderSubMenu1 = () => {
       //   function travel(_route: RouteRecordRaw[], nodes = []) {
       //     if (_route) {
@@ -277,25 +249,6 @@
     },
   });
 </script>
-<!-- if (currentKey.value === element.name) {
-  element?.children?.forEach((childrenElement) => {
-    // This is demo, modify nodes as needed
-    const childrenIcon = childrenElement?.meta?.icon
-      ? () => h(compile(`<${childrenElement?.meta?.icon}/>`))
-      : null;
-    const node = (
-      <a-menu-item
-        key={childrenElement?.name}
-        v-slots={{ childrenIcon }}
-        onClick={() => goto(childrenElement)}
-      >
-        {t(childrenElement?.meta?.locale || '')}
-      </a-menu-item>
-    );
-    nodes.push(node as never);
-  });
-  // return nodes;
-} -->
 <style lang="less" scoped>
   :deep(.arco-menu-inner) {
     .arco-menu-inline-header {

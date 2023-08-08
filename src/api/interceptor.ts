@@ -19,8 +19,6 @@ axios.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // let each request carry token
     // this example using the JWT token
-    // Authorization is a custom headers key
-    // please modify it according to the actual situation
     const token = getToken();
     if (token) {
       if (!config.headers) {
@@ -28,6 +26,7 @@ axios.interceptors.request.use(
       }
       // config.headers.Authorization = `Bearer ${token}`;
       config.headers.Authorization = `${token}`;
+      config.headers.channel = 'admin';
     }
     return config;
   },

@@ -1,12 +1,16 @@
 import { DEFAULT_LAYOUT } from '../base';
 import { AppRouteRecordRaw } from '../types';
+// export const DEFAULT_ChildLAYOUT = () =>
+//   import('@/layout/default-childLayout.vue');
+export const DEFAULT_CHILD_LAYOUT = () =>
+  import('@/layout/default-childLayout.vue');
 /**
  * 组织管理
  */
 const MANAGE: AppRouteRecordRaw = {
   path: '/manage',
   name: 'manage',
-  component: '',
+  component: DEFAULT_LAYOUT,
   meta: {
     locale: 'menu.manage',
     requiresAuth: true,
@@ -17,7 +21,7 @@ const MANAGE: AppRouteRecordRaw = {
     {
       path: 'organization',
       name: 'organization',
-      component: DEFAULT_LAYOUT,
+      component: DEFAULT_CHILD_LAYOUT,
       meta: {
         locale: 'menu.manage.organization',
         requiresAuth: true,
