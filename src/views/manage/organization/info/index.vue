@@ -1,100 +1,41 @@
 <template>
   <div class="container">
-    <a-card class="general-card" :title="$t('menu.manage.member.info.query')">
+    <a-card>
       <a-row>
         <a-col :flex="1">
           <a-form
             :model="formModel"
-            :label-col-props="{ span: 6 }"
+            :label-col-props="{ span: 0 }"
             :wrapper-col-props="{ span: 18 }"
             label-align="left"
           >
             <a-row :gutter="16">
-              <a-col :span="8">
-                <a-form-item
-                  field="number"
-                  :label="$t('searchTable.form.number')"
-                >
+              <a-col :span="12">
+                <a-form-item field="number">
                   <a-input
                     v-model="formModel.number"
-                    :placeholder="$t('searchTable.form.number.placeholder')"
+                    :placeholder="'请输入组织简称'"
                   />
                 </a-form-item>
               </a-col>
-              <a-col :span="8">
-                <a-form-item field="name" :label="$t('searchTable.form.name')">
-                  <a-input
-                    v-model="formModel.name"
-                    :placeholder="$t('searchTable.form.name.placeholder')"
-                  />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-form-item
-                  field="contentType"
-                  :label="$t('searchTable.form.contentType')"
-                >
-                  <a-select
-                    v-model="formModel.contentType"
-                    :options="contentTypeOptions"
-                    :placeholder="$t('searchTable.form.selectDefault')"
-                  />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-form-item
-                  field="filterType"
-                  :label="$t('searchTable.form.filterType')"
-                >
-                  <a-select
-                    v-model="formModel.filterType"
-                    :options="filterTypeOptions"
-                    :placeholder="$t('searchTable.form.selectDefault')"
-                  />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-form-item
-                  field="createdTime"
-                  :label="$t('searchTable.form.createdTime')"
-                >
-                  <a-range-picker
-                    v-model="formModel.createdTime"
-                    style="width: 100%"
-                  />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-form-item
-                  field="status"
-                  :label="$t('searchTable.form.status')"
-                >
-                  <a-select
-                    v-model="formModel.status"
-                    :options="statusOptions"
-                    :placeholder="$t('searchTable.form.selectDefault')"
-                  />
-                </a-form-item>
+              <a-col :span="12" style="text-align: right">
+                <a-space direction="horizontal" :size="18">
+                  <a-button type="primary" @click="search">
+                    <template #icon>
+                      <icon-search />
+                    </template>
+                    {{ $t('searchTable.form.search') }}
+                  </a-button>
+                  <a-button @click="reset">
+                    <template #icon>
+                      <icon-refresh />
+                    </template>
+                    {{ $t('searchTable.form.reset') }}
+                  </a-button>
+                </a-space>
               </a-col>
             </a-row>
           </a-form>
-        </a-col>
-        <a-divider style="height: 84px" direction="vertical" />
-        <a-col :flex="'86px'" style="text-align: right">
-          <a-space direction="vertical" :size="18">
-            <a-button type="primary" @click="search">
-              <template #icon>
-                <icon-search />
-              </template>
-              {{ $t('searchTable.form.search') }}
-            </a-button>
-            <a-button @click="reset">
-              <template #icon>
-                <icon-refresh />
-              </template>
-              {{ $t('searchTable.form.reset') }}
-            </a-button>
-          </a-space>
         </a-col>
       </a-row>
       <a-divider style="margin-top: 0" />
@@ -193,51 +134,6 @@
         :size="size"
         @page-change="onPageChange"
       >
-        <template #index="{ rowIndex }">
-          {{ rowIndex + 1 + (pagination.current - 1) * pagination.pageSize }}
-        </template>
-        <template #name="{ name }">
-          {{ name }}
-        </template>
-        <template #contentType="{ record }">
-          <a-space>
-            <a-avatar
-              v-if="record.contentType === 'img'"
-              :size="16"
-              shape="square"
-            >
-              <img
-                alt="avatar"
-                src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/581b17753093199839f2e327e726b157.svg~tplv-49unhts6dw-image.image"
-              />
-            </a-avatar>
-            <a-avatar
-              v-else-if="record.contentType === 'horizontalVideo'"
-              :size="16"
-              shape="square"
-            >
-              <img
-                alt="avatar"
-                src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/77721e365eb2ab786c889682cbc721c1.svg~tplv-49unhts6dw-image.image"
-              />
-            </a-avatar>
-            <a-avatar v-else :size="16" shape="square">
-              <img
-                alt="avatar"
-                src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/ea8b09190046da0ea7e070d83c5d1731.svg~tplv-49unhts6dw-image.image"
-              />
-            </a-avatar>
-            {{ $t(`searchTable.form.contentType.${record.contentType}`) }}
-          </a-space>
-        </template>
-        <template #filterType="{ record }">
-          {{ $t(`searchTable.form.filterType.${record.filterType}`) }}
-        </template>
-        <template #status="{ record }">
-          <span v-if="record.status === 'offline'" class="circle"></span>
-          <span v-else class="circle pass"></span>
-          {{ $t(`searchTable.form.status.${record.status}`) }}
-        </template>
         <template #operations>
           <a-button v-permission="['admin']" type="text" size="small">
             {{ $t('searchTable.columns.operations.view') }}
@@ -296,64 +192,26 @@
   const pagination = reactive({
     ...basePagination,
   });
-  const densityList = computed(() => [
-    {
-      name: t('searchTable.size.mini'),
-      value: 'mini',
-    },
-    {
-      name: t('searchTable.size.small'),
-      value: 'small',
-    },
-    {
-      name: t('searchTable.size.medium'),
-      value: 'medium',
-    },
-    {
-      name: t('searchTable.size.large'),
-      value: 'large',
-    },
-  ]);
   const columns = computed<TableColumnData[]>(() => [
     {
-      title: t('manage.member.info.query.org'),
-      dataIndex: 'index',
-      slotName: 'index',
-    },
-    {
-      title: t('manage.member.info.query.org'),
-      dataIndex: 'name',
-      slotName: 'name',
-    },
-    {
-      title: t('manage.member.info.query.bus'),
-      dataIndex: 'number',
-    },
-    {
-      title: t('searchTable.columns.name'),
+      title: '组织简称',
       dataIndex: 'name',
     },
     {
-      title: t('searchTable.columns.contentType'),
-      dataIndex: 'contentType',
-      slotName: 'contentType',
+      title: '组织属性',
+      dataIndex: 'property',
     },
     {
-      title: t('searchTable.columns.filterType'),
-      dataIndex: 'filterType',
+      title: '联系电话',
+      dataIndex: 'dtelephone',
     },
     {
-      title: t('searchTable.columns.count'),
-      dataIndex: 'count',
+      title: '成立时间',
+      dataIndex: 'dsetdate',
     },
     {
-      title: t('searchTable.columns.createdTime'),
-      dataIndex: 'createdTime',
-    },
-    {
-      title: t('searchTable.columns.status'),
-      dataIndex: 'status',
-      slotName: 'status',
+      title: '书记',
+      dataIndex: 'secretary',
     },
     {
       title: t('searchTable.columns.operations'),
@@ -361,40 +219,7 @@
       slotName: 'operations',
     },
   ]);
-  const contentTypeOptions = computed<SelectOptionData[]>(() => [
-    {
-      label: t('searchTable.form.contentType.img'),
-      value: 'img',
-    },
-    {
-      label: t('searchTable.form.contentType.horizontalVideo'),
-      value: 'horizontalVideo',
-    },
-    {
-      label: t('searchTable.form.contentType.verticalVideo'),
-      value: 'verticalVideo',
-    },
-  ]);
-  const filterTypeOptions = computed<SelectOptionData[]>(() => [
-    {
-      label: t('searchTable.form.filterType.artificial'),
-      value: 'artificial',
-    },
-    {
-      label: t('searchTable.form.filterType.rules'),
-      value: 'rules',
-    },
-  ]);
-  const statusOptions = computed<SelectOptionData[]>(() => [
-    {
-      label: t('searchTable.form.status.online'),
-      value: 'online',
-    },
-    {
-      label: t('searchTable.form.status.offline'),
-      value: 'offline',
-    },
-  ]);
+
   const fetchData = async (
     params: PolicyParams = { current: 1, pageSize: 20 }
   ) => {

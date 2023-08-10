@@ -112,7 +112,7 @@ const MANAGE: AppRouteRecordRaw = {
           meta: {
             locale: 'menu.manage.member.advice',
             requiresAuth: true,
-            roles: ['admin'],
+            roles: ['*'],
           },
         },
         {
@@ -122,7 +122,7 @@ const MANAGE: AppRouteRecordRaw = {
           meta: {
             locale: 'menu.manage.member.query',
             requiresAuth: true,
-            roles: ['admin'],
+            roles: ['*'],
           },
         },
       ],

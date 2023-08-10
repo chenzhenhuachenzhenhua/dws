@@ -1,100 +1,41 @@
 <template>
   <div v-show="!visible" class="container">
-    <a-card class="general-card" :title="'组织单位查询'">
+    <a-card>
       <a-row>
         <a-col :flex="1">
           <a-form
             :model="formModel"
-            :label-col-props="{ span: 6 }"
+            :label-col-props="{ span: 0 }"
             :wrapper-col-props="{ span: 18 }"
             label-align="left"
           >
             <a-row :gutter="16">
-              <a-col :span="8">
-                <a-form-item
-                  field="number"
-                  :label="$t('searchTable.form.number')"
-                >
+              <a-col :span="12">
+                <a-form-item field="number">
                   <a-input
                     v-model="formModel.number"
-                    :placeholder="$t('searchTable.form.number.placeholder')"
+                    :placeholder="'请输入组织简称'"
                   />
                 </a-form-item>
               </a-col>
-              <a-col :span="8">
-                <a-form-item field="name" :label="$t('searchTable.form.name')">
-                  <a-input
-                    v-model="formModel.name"
-                    :placeholder="$t('searchTable.form.name.placeholder')"
-                  />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-form-item
-                  field="contentType"
-                  :label="$t('searchTable.form.contentType')"
-                >
-                  <a-select
-                    v-model="formModel.contentType"
-                    :options="contentTypeOptions"
-                    :placeholder="$t('searchTable.form.selectDefault')"
-                  />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-form-item
-                  field="filterType"
-                  :label="$t('searchTable.form.filterType')"
-                >
-                  <a-select
-                    v-model="formModel.filterType"
-                    :options="filterTypeOptions"
-                    :placeholder="$t('searchTable.form.selectDefault')"
-                  />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-form-item
-                  field="createdTime"
-                  :label="$t('searchTable.form.createdTime')"
-                >
-                  <a-range-picker
-                    v-model="formModel.createdTime"
-                    style="width: 100%"
-                  />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-form-item
-                  field="status"
-                  :label="$t('searchTable.form.status')"
-                >
-                  <a-select
-                    v-model="formModel.status"
-                    :options="statusOptions"
-                    :placeholder="$t('searchTable.form.selectDefault')"
-                  />
-                </a-form-item>
+              <a-col :span="12" style="text-align: right">
+                <a-space direction="horizontal" :size="18">
+                  <a-button type="primary" @click="search">
+                    <template #icon>
+                      <icon-search />
+                    </template>
+                    {{ $t('searchTable.form.search') }}
+                  </a-button>
+                  <a-button @click="reset">
+                    <template #icon>
+                      <icon-refresh />
+                    </template>
+                    {{ $t('searchTable.form.reset') }}
+                  </a-button>
+                </a-space>
               </a-col>
             </a-row>
           </a-form>
-        </a-col>
-        <a-divider style="height: 84px" direction="vertical" />
-        <a-col :flex="'86px'" style="text-align: right">
-          <a-space direction="vertical" :size="18">
-            <a-button type="primary" @click="search">
-              <template #icon>
-                <icon-search />
-              </template>
-              {{ $t('searchTable.form.search') }}
-            </a-button>
-            <a-button @click="reset">
-              <template #icon>
-                <icon-refresh />
-              </template>
-              {{ $t('searchTable.form.reset') }}
-            </a-button>
-          </a-space>
         </a-col>
       </a-row>
       <a-divider style="margin-top: 0" />
@@ -201,7 +142,7 @@
       </a-table>
     </a-card>
   </div>
-  <div v-show="visible">测试</div>
+  <div v-show="visible"><PartyForm></PartyForm></div>
 </template>
 
 <script lang="ts" setup>
@@ -217,6 +158,7 @@
   } from '@arco-design/web-vue/es/table/interface';
   import cloneDeep from 'lodash/cloneDeep';
   import Sortable from 'sortablejs';
+  import PartyForm from '@/views/manage/organization/partyUnit/partyForm/index.vue';
 
   type SizeProps = 'mini' | 'small' | 'medium' | 'large';
   type Column = TableColumnData & { checked?: true };

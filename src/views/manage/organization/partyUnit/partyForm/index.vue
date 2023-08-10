@@ -1,18 +1,12 @@
 <template>
   <div class="container">
-    <Breadcrumb :items="['menu.form', 'menu.form.group']" />
     <a-form ref="formRef" layout="vertical" :model="formData">
       <a-space direction="vertical" :size="16">
         <a-card class="general-card">
-          <template #title>
-            {{ $t('groupForm.title.video') }}
-          </template>
+          <template #title> 基本信息 </template>
           <a-row :gutter="80">
-            <a-col :span="8">
-              <a-form-item
-                :label="$t('groupForm.form.label.video.mode')"
-                field="video.mode"
-              >
+            <a-col :span="12">
+              <a-form-item :label="'所属组织名称'" field="video.mode">
                 <a-select :placeholder="$t('groupForm.placeholder.video.mode')">
                   <a-option value="custom">自定义</a-option>
                   <a-option value="mode1">模式1</a-option>
@@ -20,9 +14,9 @@
                 </a-select>
               </a-form-item>
             </a-col>
-            <a-col :span="8">
+            <a-col :span="12">
               <a-form-item
-                :label="$t('groupForm.form.label.video.acquisition.resolution')"
+                :label="'单位名称'"
                 field="video.acquisition.resolution"
               >
                 <a-select
@@ -36,25 +30,11 @@
                 </a-select>
               </a-form-item>
             </a-col>
-            <a-col :span="8">
-              <a-form-item
-                :label="$t('groupForm.form.label.video.acquisition.frameRate')"
-                field="video.acquisition.frameRate"
-              >
-                <a-input
-                  :placeholder="
-                    $t('groupForm.placeholder.video.acquisition.frameRate')
-                  "
-                >
-                  <template #append> fps </template>
-                </a-input>
-              </a-form-item>
-            </a-col>
           </a-row>
           <a-row :gutter="80">
-            <a-col :span="8">
+            <a-col :span="12">
               <a-form-item
-                :label="$t('groupForm.form.label.video.encoding.resolution')"
+                :label="'单位隶属关系'"
                 field="video.encoding.resolution"
               >
                 <a-select
@@ -68,11 +48,8 @@
                 </a-select>
               </a-form-item>
             </a-col>
-            <a-col :span="8">
-              <a-form-item
-                :label="$t('groupForm.form.label.video.encoding.rate.min')"
-                field="video.encoding.rate.min"
-              >
+            <a-col :span="12">
+              <a-form-item :label="'单位属性'" field="video.encoding.rate.min">
                 <a-input
                   :placeholder="
                     $t('groupForm.placeholder.video.encoding.rate.min')
@@ -83,25 +60,11 @@
                 </a-input>
               </a-form-item>
             </a-col>
-            <a-col :span="8">
-              <a-form-item
-                :label="$t('groupForm.form.label.video.encoding.rate.max')"
-                field="video.encoding.rate.max"
-              >
-                <a-input
-                  :placeholder="
-                    $t('groupForm.placeholder.video.encoding.rate.max')
-                  "
-                >
-                  <template #append> bps </template>
-                </a-input>
-              </a-form-item>
-            </a-col>
           </a-row>
           <a-row :gutter="80">
-            <a-col :span="8">
+            <a-col :span="12">
               <a-form-item
-                :label="$t('groupForm.form.label.video.encoding.rate.default')"
+                :label="'所属行业'"
                 field="video.encoding.rate.default"
               >
                 <a-input
@@ -113,11 +76,8 @@
                 </a-input>
               </a-form-item>
             </a-col>
-            <a-col :span="8">
-              <a-form-item
-                :label="$t('groupForm.form.label.video.encoding.frameRate')"
-                field="video.encoding.frameRate"
-              >
+            <a-col :span="12">
+              <a-form-item :label="'经济类型'" field="video.encoding.frameRate">
                 <a-input
                   :placeholder="
                     $t('groupForm.placeholder.video.encoding.frameRate')
@@ -127,60 +87,51 @@
                 </a-input>
               </a-form-item>
             </a-col>
-            <a-col :span="8">
+          </a-row>
+          <a-row :gutter="80">
+            <a-col :span="12">
               <a-form-item
-                :label="$t('groupForm.form.label.video.encoding.profile')"
-                field="video.encoding.profile"
+                :label="'企业规模'"
+                field="video.encoding.rate.default"
               >
                 <a-input
                   :placeholder="
-                    $t('groupForm.placeholder.video.encoding.profile')
+                    $t('groupForm.placeholder.video.encoding.rate.default')
                   "
                 >
                   <template #append> bps </template>
                 </a-input>
               </a-form-item>
             </a-col>
+            <a-col :span="12">
+              <a-form-item :label="'企业类型'" field="video.encoding.frameRate">
+                <a-input
+                  :placeholder="
+                    $t('groupForm.placeholder.video.encoding.frameRate')
+                  "
+                >
+                  <template #append> fps </template>
+                </a-input>
+              </a-form-item>
+            </a-col>
           </a-row>
         </a-card>
         <a-card class="general-card">
-          <template #title>
-            {{ $t('groupForm.title.audio') }}
-          </template>
+          <template #title> 联系信息 </template>
           <a-row :gutter="80">
-            <a-col :span="8">
-              <a-form-item
-                :label="$t('groupForm.form.label.audio.mode')"
-                field="audio.mode"
-              >
-                <a-select :placeholder="$t('groupForm.placeholder.audio.mode')">
-                  <a-option value="custom">自定义</a-option>
-                  <a-option value="mode1">模式1</a-option>
-                  <a-option value="mode2">模式2</a-option>
-                </a-select>
-              </a-form-item>
-            </a-col>
-            <a-col :span="8">
-              <a-form-item
-                :label="$t('groupForm.form.label.audio.acquisition.channels')"
-                field="audio.acquisition.channels"
-              >
-                <a-select
+            <a-col :span="12">
+              <a-form-item :label="'联系人'" field="audio.encoding.channels">
+                <a-input
                   :placeholder="
-                    $t('groupForm.placeholder.audio.acquisition.channels')
+                    $t('groupForm.placeholder.audio.encoding.channels')
                   "
                 >
-                  <a-option value="1">1</a-option>
-                  <a-option value="2">2</a-option>
-                  <a-option value="3">3</a-option>
-                </a-select>
+                  <template #append> bps </template>
+                </a-input>
               </a-form-item>
             </a-col>
-            <a-col :span="8">
-              <a-form-item
-                :label="$t('groupForm.form.label.audio.encoding.channels')"
-                field="audio.encoding.channels"
-              >
+            <a-col :span="12">
+              <a-form-item :label="'电话'" field="audio.encoding.channels">
                 <a-input
                   :placeholder="
                     $t('groupForm.placeholder.audio.encoding.channels')
@@ -221,22 +172,10 @@
             </a-col>
           </a-row>
         </a-card>
-        <a-card class="general-card" :bordered="false">
-          <template #title>
-            {{ $t('groupForm.title.description') }}
-          </template>
-          <a-form-item
-            :label="$t('groupForm.form.label.parameterDescription')"
-            field="audio.approvers"
-          >
-            <a-textarea
-              :placeholder="$t('groupForm.placeholder.description')"
-            />
-          </a-form-item>
-        </a-card>
       </a-space>
       <div class="actions">
         <a-space>
+          <a-button> 关闭 </a-button>
           <a-button>
             {{ $t('groupForm.reset') }}
           </a-button>
@@ -276,7 +215,7 @@
 
 <style scoped lang="less">
   .container {
-    padding: 0 20px 40px 20px;
+    padding: 20px;
     overflow: hidden;
   }
 
