@@ -1,10 +1,10 @@
 <template>
-    <a-modal :visible="visible" @ok="handleOk" @cancel="handleCancel" :width="800" @before-open="init">
+    <a-modal :visible="visible" @ok="handleOk" @cancel="handleCancel" :width="800" @before-open="init" @close="close">
         <template #title>
-            {{ title }}
+            {{ options.title || '选择上级组织' }}
         </template>
         <div style="margin-bottom: 100px;">
-            <a-tree-select v-model="formVal" :allow-search="true" :data="treeData" :load-more="loadMore" placeholder="请选择"
+            <a-tree-select v-model="formVal" :label-in-value="true" :allow-search="true" :data="treeData" :load-more="loadMore" placeholder="请选择"
                 size="large" selectable="leaf" style="width: 100%"></a-tree-select>
         </div>
     </a-modal>
@@ -19,16 +19,17 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
-    type: {
-        type: Number,
-        default: () => 0
-    },
-    title: {
-        type: String,
-        default: () => '选择上级组织'
+    options: {
+        type: Object,
+        default: () => {
+            return {
+                type: 0,
+                title:  '选择上级组织'
+            }
+        }
     }
 });
-const emit = defineEmits(['cancel', 'confirm']);
+const emit = defineEmits(['confirm']);
 
 const formVal = ref(null);
 
@@ -36,7 +37,7 @@ const handleOk = () => {
     emit('confirm', formVal.value);
 };
 const handleCancel = () => {
-    emit('cancel');
+    emit('confirm');
 }
 
 const treeData = ref([]) as any;
@@ -58,7 +59,10 @@ const loadMore = async (nodeData: any) => {
 };
 
 const init = async () => {
-    const res = await getTreeData({ type: props.type })
+    const res = await getTreeData({ type: props.options.type || 0 })
     treeData.value = res;
+}
+const close = () => {
+    formVal.value = null;
 }
 </script>
