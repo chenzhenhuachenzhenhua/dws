@@ -98,7 +98,7 @@ const MANAGE: AppRouteRecordRaw = {
         {
           path: 'memberInfo',
           name: 'memberInfo',
-          component: () => import('@/views/dashboard/workplace/index.vue'),
+          component: () => import('@/views/manage/member/info/index.vue'),
           meta: {
             locale: 'menu.manage.member.info',
             requiresAuth: true,
