@@ -76,16 +76,6 @@
             <a-tooltip :content="$t('searchTable.actions.density')">
               <div class="action-icon"><icon-line-height size="18" /></div>
             </a-tooltip>
-            <template #content>
-              <a-doption
-                v-for="item in densityList"
-                :key="item.value"
-                :value="item.value"
-                :class="{ active: item.value === size }"
-              >
-                <span>{{ item.name }}</span>
-              </a-doption>
-            </template>
           </a-dropdown>
           <a-tooltip :content="$t('searchTable.actions.columnSetting')">
             <a-popover

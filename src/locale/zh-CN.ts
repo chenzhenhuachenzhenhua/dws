@@ -33,7 +33,6 @@ import localeUserSetting from '@/views/user/setting/locale/zh-CN';
 import localeSettings from './zh-CN/settings';
 
 export default {
-  'menu.party': '组织管理',
   // 下面不要增加,后期要删除
   'menu.dashboard': '仪表盘',
   'menu.server.dashboard': '仪表盘-服务端',

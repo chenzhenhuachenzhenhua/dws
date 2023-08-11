@@ -8,12 +8,29 @@ import configImageminPlugin from './plugin/imagemin';
 export default mergeConfig(
   {
     mode: 'production',
+
     plugins: [
       configCompressPlugin('gzip'),
       configVisualizerPlugin(),
       configArcoResolverPlugin(),
       configImageminPlugin(),
     ],
+    server: {
+      port: '3000',
+      open: true,
+      fs: {
+        strict: true,
+      },
+      //反向代理
+      proxy: {
+        '/api': {
+          target: 'https://dev.qisi.cc/api',
+          changeOrigin: true,
+          // 将api替换成''
+          // rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+      },
+    },
     build: {
       rollupOptions: {
         output: {
