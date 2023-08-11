@@ -12,6 +12,7 @@
                   <a-option value="mode1">模式1</a-option>
                   <a-option value="mode2">模式2</a-option>
                 </a-select>
+                <TreeSelectDialog></TreeSelectDialog>
               </a-form-item>
             </a-col>
             <a-col :span="12">
@@ -54,9 +55,7 @@
                   :placeholder="
                     $t('groupForm.placeholder.video.encoding.rate.min')
                   "
-                  add-after="bps"
                 >
-                  <template #append> bps </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -72,7 +71,6 @@
                     $t('groupForm.placeholder.video.encoding.rate.default')
                   "
                 >
-                  <template #append> bps </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -83,7 +81,6 @@
                     $t('groupForm.placeholder.video.encoding.frameRate')
                   "
                 >
-                  <template #append> fps </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -99,7 +96,6 @@
                     $t('groupForm.placeholder.video.encoding.rate.default')
                   "
                 >
-                  <template #append> bps </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -110,7 +106,6 @@
                     $t('groupForm.placeholder.video.encoding.frameRate')
                   "
                 >
-                  <template #append> fps </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -175,7 +170,7 @@
       </a-space>
       <div class="actions">
         <a-space>
-          <a-button> 关闭 </a-button>
+          <a-button @click="onCloseClick"> 关闭 </a-button>
           <a-button>
             {{ $t('groupForm.reset') }}
           </a-button>
@@ -192,10 +187,12 @@
   import { ref } from 'vue';
   import { FormInstance } from '@arco-design/web-vue/es/form';
   import useLoading from '@/hooks/loading';
+  import TreeSelectDialog from '@/components/tree-select-dialog/index.vue';
 
   const formData = ref({});
   const formRef = ref<FormInstance>();
   const { loading, setLoading } = useLoading();
+
   const onSubmitClick = async () => {
     const res = await formRef.value?.validate();
     if (!res) {
@@ -205,6 +202,7 @@
       setLoading(false);
     }, 1000);
   };
+  const onCloseClick = () => {};
 </script>
 
 <script lang="ts">
