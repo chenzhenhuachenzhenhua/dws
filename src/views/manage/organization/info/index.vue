@@ -11,9 +11,9 @@
           >
             <a-row :gutter="16">
               <a-col :span="12">
-                <a-form-item field="number">
+                <a-form-item field="name">
                   <a-input
-                    v-model="formModel.number"
+                    v-model="formModel.name"
                     :placeholder="'请输入组织简称'"
                   />
                 </a-form-item>
@@ -158,12 +158,7 @@
   });
   const generateFormModel = () => {
     return {
-      number: '',
       name: '',
-      contentType: '',
-      filterType: '',
-      createdTime: [],
-      status: '',
     };
   };
   const { loading, setLoading } = useLoading(true);

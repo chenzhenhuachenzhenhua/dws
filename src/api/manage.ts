@@ -52,7 +52,11 @@ export function queryRulesPresetList() {
  * @returns
  */
 export function queryOrgList(params: PolicyParams) {
-  return axios.post('/api/admin/party/org/list', { params });
+  return axios.post('/api/admin/party/org/list', {
+    name: params.name,
+    page: params.current,
+    size: params.pageSize,
+  });
 }
 /**
  *
@@ -60,7 +64,11 @@ export function queryOrgList(params: PolicyParams) {
  * @returns
  */
 export function queryPartyUnitList(params: PolicyParams) {
-  return axios.post(ApiUrl.orgManage.queryPartyUnitList, { params });
+  return axios.post(ApiUrl.orgManage.queryPartyUnitList, {
+    name: params.name,
+    page: params.current,
+    size: params.pageSize,
+  });
 }
 
 /**
