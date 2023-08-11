@@ -63,6 +63,7 @@ const useUserStore = defineStore('user', {
     // Login
     async login(loginForm: LoginData) {
       try {
+        clearToken();
         const res = await userLogin(loginForm);
         setToken(res.data.token);
       } catch (err) {

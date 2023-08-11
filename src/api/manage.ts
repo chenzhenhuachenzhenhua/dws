@@ -62,3 +62,12 @@ export function queryOrgList(params: PolicyParams) {
 export function queryPartyUnitList(params: PolicyParams) {
   return axios.post(ApiUrl.orgManage.queryPartyUnitList, { params });
 }
+
+/**
+ *
+ * @param params 党员信息查询
+ * @returns
+ */
+export function queryMemberList(params: PolicyParams) {
+  return axios.post(ApiUrl.orgManage.queryMemberList, { params });
+}

@@ -12,6 +12,7 @@ export const ApiUrl = {
   orgManage: {
     queryOrgList: `${ApiHost}/admin/party/org/list`,
     queryPartyUnitList: `${ApiHost}/admin/party/partyUnit/page`, // 组织单位
+    queryMemberList: `${ApiHost}/admin/party/manage/page`, // 组织单位
   },
   // 党务中心
   party: {},
