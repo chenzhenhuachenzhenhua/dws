@@ -71,3 +71,13 @@ export function queryPartyUnitList(params: PolicyParams) {
 export function queryMemberList(params: PolicyParams) {
   return axios.post(ApiUrl.orgManage.queryMemberList, { params });
 }
+/**
+ * @param params 组织单位查询
+ * @returns
+ */
+export function queryPartyTreeDataSelect(params: any) {
+  /**
+   * todo 接口待确认
+   */
+  return axios.post(ApiUrl.orgManage.queryPartyTreeDataSelect, params);
+}

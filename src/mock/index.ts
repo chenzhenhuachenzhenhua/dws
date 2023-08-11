@@ -20,6 +20,8 @@ import '@/views/visualization/multi-dimension-data-analysis/mock';
 import '@/views/user/info/mock';
 import '@/views/user/setting/mock';
 
+import '@/components/tree-select-dialog/mock';
+
 Mock.setup({
   timeout: '600-1000',
 });
