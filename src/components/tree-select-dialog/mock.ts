@@ -6,7 +6,7 @@ const { Random } = Mock;
 setupMock({
   setup() {
     // Quality Inspection
-    Mock.mock(new RegExp('/api/admin/party/org/treeData'), () => {
+    Mock.mock(new RegExp('/api/admin/dic/type'), () => {
       const total = Mock.mock({ "number|0-20": 0 }).number
       return successResponseWrap(
         Array.from({length: total}).map(() => ({
