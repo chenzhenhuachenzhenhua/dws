@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onBeforeMount, defineEmits, defineProps } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import { queryPartyTreeDataSelect } from '@/api/manage';
 
 const props = defineProps({
@@ -31,7 +31,7 @@ const props = defineProps({
 });
 const emit = defineEmits(['confirm']);
 
-const formVal = ref(null);
+const formVal = ref('');
 
 const handleOk = () => {
     emit('confirm', formVal.value);
@@ -63,6 +63,6 @@ const init = async () => {
     treeData.value = res;
 }
 const close = () => {
-    formVal.value = null;
+    formVal.value = '';
 }
 </script>

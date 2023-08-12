@@ -190,9 +190,9 @@
   import useLoading from '@/hooks/loading';
   // import treeSelectDialog from '@/components/tree-select-dialog/index.vue';
 
-  const formData = ref({
-    resolution: {},
-    unitAttribute: {}
+  const formData: any = ref({
+    resolution: {label: '', value: ''},
+    unitAttribute: {label: '', value: ''}
   });
   const formRef = ref<FormInstance>();
   const { loading, setLoading } = useLoading();
@@ -206,7 +206,7 @@
     }, 1000);
   };
   const openTreeSelectDialogFunc = inject('openTreeSelectDialog') as any;
-  const getRelationship = async (field: string, type?: number) => {
+  const getRelationship = async (field: any, type?: any) => {
     const formVal = await openTreeSelectDialogFunc(type);
     console.log('拿到模态框返回的数据----', formVal);
     if (!formVal) return;
