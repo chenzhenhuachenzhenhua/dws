@@ -380,7 +380,7 @@
     },
   ]);
   const fetchData = async (
-    params: PolicyParams = { current: 1, pageSize: 20 }
+    params: PolicyParams = { current: 0, pageSize: 20 }
   ) => {
     setLoading(true);
     try {

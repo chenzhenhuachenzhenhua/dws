@@ -64,10 +64,13 @@ export function queryOrgList(params: PolicyParams) {
  * @returns
  */
 export function queryPartyUnitList(params: PolicyParams) {
+  // return axios.post(ApiUrl.orgManage.queryPartyUnitList, {
+  //   name: params.name,
+  //   page: params.current,
+  //   size: params.pageSize,
+  // });
   return axios.post(ApiUrl.orgManage.queryPartyUnitList, {
-    name: params.name,
-    page: params.current,
-    size: params.pageSize,
+    ...params,
   });
 }
 
@@ -77,7 +80,9 @@ export function queryPartyUnitList(params: PolicyParams) {
  * @returns
  */
 export function queryMemberList(params: PolicyParams) {
-  return axios.post(ApiUrl.orgManage.queryMemberList, { params });
+  return axios.post(ApiUrl.orgManage.queryMemberList, {
+    ...params,
+  });
 }
 /**
  * @param params 组织单位查询

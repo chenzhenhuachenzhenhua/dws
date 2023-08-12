@@ -5,37 +5,65 @@
         <a-col :flex="1">
           <a-form
             :model="formModel"
-            :label-col-props="{ span: 0 }"
-            :wrapper-col-props="{ span: 18 }"
+            :label-col-props="{ span: 5 }"
+            :wrapper-col-props="{ span: 19 }"
             label-align="left"
           >
             <a-row :gutter="16">
-              <a-col :span="12">
-                <a-form-item field="number">
+              <a-col :span="8">
+                <a-form-item field="input" :label="'关键字'">
                   <a-input
-                    v-model="formModel.number"
-                    :placeholder="'请输入组织简称'"
+                    v-model="formModel.input"
+                    :placeholder="'输入组织名称/姓名/手机号/身份证号'"
                   />
                 </a-form-item>
               </a-col>
-              <a-col :span="12" style="text-align: right">
-                <a-space direction="horizontal" :size="18">
-                  <a-button type="primary" @click="search">
-                    <template #icon>
-                      <icon-search />
-                    </template>
-                    {{ $t('searchTable.form.search') }}
-                  </a-button>
-                  <a-button @click="reset">
-                    <template #icon>
-                      <icon-refresh />
-                    </template>
-                    {{ $t('searchTable.form.reset') }}
-                  </a-button>
-                </a-space>
+              <a-col :span="8">
+                <a-form-item field="education" :label="'学历'">
+                  <a-select
+                    v-model="formModel.education"
+                    :options="educationTypeOptions"
+                    :placeholder="'请选择学历'"
+                  />
+                </a-form-item>
+              </a-col>
+              <a-col :span="8">
+                <a-form-item field="sex" :label="'性别'">
+                  <a-select
+                    v-model="formModel.sex"
+                    :options="sexTypeOptions"
+                    :placeholder="'请选择性别'"
+                  />
+                </a-form-item>
+              </a-col>
+              <a-col :span="8">
+                <a-form-item field="contentType" :label="'状态'">
+                  <a-select
+                    v-model="formModel.flag"
+                    :options="flagTypeOptions"
+                    :placeholder="'请选择状态'"
+                  />
+                </a-form-item>
               </a-col>
             </a-row>
           </a-form>
+        </a-col>
+        <a-divider style="height: 84px" direction="vertical" />
+        <a-col :flex="'86px'" style="text-align: right">
+          <a-space direction="vertical" :size="18">
+            <a-button type="primary" @click="search">
+              <template #icon>
+                <icon-search />
+              </template>
+              {{ $t('searchTable.form.search') }}
+            </a-button>
+            <a-button @click="reset">
+              <template #icon>
+                <icon-refresh />
+              </template>
+              {{ $t('searchTable.form.reset') }}
+            </a-button>
+          </a-space>
         </a-col>
       </a-row>
       <a-divider style="margin-top: 0" />
@@ -158,12 +186,10 @@
   });
   const generateFormModel = () => {
     return {
-      number: '',
-      name: '',
-      contentType: '',
-      filterType: '',
-      createdTime: [],
-      status: '',
+      input: '',
+      flag: '',
+      education: '',
+      sex: '',
     };
   };
   const { loading, setLoading } = useLoading(true);
@@ -229,9 +255,76 @@
       slotName: 'operations',
     },
   ]);
-
+  // 11.博士研究生 10.硕士研究生 21.大学 22.大专 61.高中 41.中专 71.初中 81.小学 90.文盲"
+  const educationTypeOptions = computed<SelectOptionData[]>(() => [
+    {
+      label: '博士研究生',
+      value: '11',
+    },
+    {
+      label: '硕士研究生',
+      value: '10',
+    },
+    {
+      label: '大学',
+      value: '21',
+    },
+    {
+      label: '大专',
+      value: '22',
+    },
+    {
+      label: '高中',
+      value: '61',
+    },
+    {
+      label: '中专',
+      value: '41',
+    },
+    {
+      label: '初中',
+      value: '71',
+    },
+    {
+      label: '小学',
+      value: '81',
+    },
+    {
+      label: '文盲',
+      value: '90',
+    },
+  ]);
+  const sexTypeOptions = computed<SelectOptionData[]>(() => [
+    {
+      label: '男',
+      value: '1',
+    },
+    {
+      label: '女',
+      value: '0',
+    },
+  ]);
+  // 0-正常，1-出党，2-死亡，3-停止党籍"
+  const flagTypeOptions = computed<SelectOptionData[]>(() => [
+    {
+      label: '正常',
+      value: '0',
+    },
+    {
+      label: '出党',
+      value: '1',
+    },
+    {
+      label: '死亡',
+      value: '2',
+    },
+    {
+      label: '停止党籍',
+      value: '3',
+    },
+  ]);
   const fetchData = async (
-    params: PolicyParams = { current: 1, pageSize: 20 }
+    params: PolicyParams = { current: 0, pageSize: 20 }
   ) => {
     setLoading(true);
     try {
