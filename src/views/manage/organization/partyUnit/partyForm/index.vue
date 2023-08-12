@@ -12,7 +12,6 @@
                   <a-option value="mode1">模式1</a-option>
                   <a-option value="mode2">模式2</a-option>
                 </a-select>
-                <TreeSelectDialog></TreeSelectDialog>
               </a-form-item>
             </a-col>
             <a-col :span="12">
@@ -36,26 +35,23 @@
             <a-col :span="12">
               <a-form-item
                 :label="'单位隶属关系'"
-                field="video.encoding.resolution"
+                field="resolution"
               >
-                <a-select
-                  :placeholder="
-                    $t('groupForm.placeholder.video.encoding.resolution')
-                  "
-                >
-                  <a-option value="resolution1">分辨率1</a-option>
-                  <a-option value="resolution2">分辨率2</a-option>
-                  <a-option value="resolution3">分辨率3</a-option>
-                </a-select>
+              <a-input v-model="formData.resolution.label" @click="getRelationship('resolution', {type: 0, title: '选择单位隶属关系'})" readonly :placeholder="$t('groupForm.placeholder.video.encoding.rate.min')" add-after="bps">
+                  <template #append> bps </template>
+                </a-input>
               </a-form-item>
             </a-col>
             <a-col :span="12">
               <a-form-item :label="'单位属性'" field="video.encoding.rate.min">
                 <a-input
+                  v-model="formData.unitAttribute.label" @click="getRelationship('unitAttribute', {type: 1, title: '选择单位属性'})" readonly
                   :placeholder="
                     $t('groupForm.placeholder.video.encoding.rate.min')
                   "
+                  add-after="bps"
                 >
+                  <template #append> bps </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -71,6 +67,7 @@
                     $t('groupForm.placeholder.video.encoding.rate.default')
                   "
                 >
+                  <template #append> bps </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -81,6 +78,7 @@
                     $t('groupForm.placeholder.video.encoding.frameRate')
                   "
                 >
+                  <template #append> fps </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -96,6 +94,7 @@
                     $t('groupForm.placeholder.video.encoding.rate.default')
                   "
                 >
+                  <template #append> bps </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -106,6 +105,7 @@
                     $t('groupForm.placeholder.video.encoding.frameRate')
                   "
                 >
+                  <template #append> fps </template>
                 </a-input>
               </a-form-item>
             </a-col>
@@ -170,7 +170,7 @@
       </a-space>
       <div class="actions">
         <a-space>
-          <a-button @click="onCloseClick"> 关闭 </a-button>
+          <a-button> 关闭 </a-button>
           <a-button>
             {{ $t('groupForm.reset') }}
           </a-button>
@@ -180,19 +180,22 @@
         </a-space>
       </div>
     </a-form>
+    <!-- 树形选择框 -->
+    <!-- <tree-select-dialog /> -->
   </div>
 </template>
-
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref, inject } from 'vue';
   import { FormInstance } from '@arco-design/web-vue/es/form';
   import useLoading from '@/hooks/loading';
-  import TreeSelectDialog from '@/components/tree-select-dialog/index.vue';
+  // import treeSelectDialog from '@/components/tree-select-dialog/index.vue';
 
-  const formData = ref({});
+  const formData: any = ref({
+    resolution: {label: '', value: ''},
+    unitAttribute: {label: '', value: ''}
+  });
   const formRef = ref<FormInstance>();
   const { loading, setLoading } = useLoading();
-
   const onSubmitClick = async () => {
     const res = await formRef.value?.validate();
     if (!res) {
@@ -202,14 +205,20 @@
       setLoading(false);
     }, 1000);
   };
-  const onCloseClick = () => {};
+  const openTreeSelectDialogFunc = inject('openTreeSelectDialog') as any;
+  const getRelationship = async (field: any, type?: any) => {
+    const formVal = await openTreeSelectDialogFunc(type);
+    console.log('拿到模态框返回的数据----', formVal);
+    if (!formVal) return;
+    formData.value[field] = formVal
+  }
 </script>
 
-<script lang="ts">
+<!-- <script lang="ts">
   export default {
     name: 'Group',
   };
-</script>
+</script> -->
 
 <style scoped lang="less">
   .container {
