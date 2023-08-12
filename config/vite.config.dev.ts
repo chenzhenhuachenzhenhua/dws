@@ -14,7 +14,7 @@ export default mergeConfig(
       //反向代理
       proxy: {
         '/api': {
-          target: 'https://dev.qisi.cc/api',
+          target: 'https://dev.qisi.cc/dangwu',
           changeOrigin: true,
           // 将api替换成''
           // rewrite: (path) => path.replace(/^\/api/, ''),
