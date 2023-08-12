@@ -22,7 +22,7 @@
                 <a-form-item field="education" :label="'学历'">
                   <a-select
                     v-model="formModel.education"
-                    :options="educationTypeOptions"
+                    :options="Object.values(educationTypeOptions)"
                     :placeholder="'请选择学历'"
                   />
                 </a-form-item>
@@ -31,7 +31,7 @@
                 <a-form-item field="sex" :label="'性别'">
                   <a-select
                     v-model="formModel.sex"
-                    :options="sexTypeOptions"
+                    :options="Object.values(sexTypeOptions)"
                     :placeholder="'请选择性别'"
                   />
                 </a-form-item>
@@ -40,7 +40,7 @@
                 <a-form-item field="contentType" :label="'状态'">
                   <a-select
                     v-model="formModel.flag"
-                    :options="flagTypeOptions"
+                    :options="Object.values(flagTypeOptions)"
                     :placeholder="'请选择状态'"
                   />
                 </a-form-item>
@@ -152,10 +152,18 @@
         :size="size"
         @page-change="onPageChange"
       >
+        <template #education="{ record }">
+          {{ educationTypeOptions[record.education].label }}
+        </template>
+        <template #sex="{ record }">
+          {{ sexTypeOptions[record.sex].label }}
+        </template>
+        <template #flag="{ record }">
+          {{ flagTypeOptions[record.flag].label }}
+        </template>
+
         <template #operations>
-          <a-button v-permission="['admin']" type="text" size="small">
-            {{ $t('searchTable.columns.operations.view') }}
-          </a-button>
+          <a-button type="text" size="small"> 修改 </a-button>
         </template>
       </a-table>
     </a-card>
@@ -202,7 +210,7 @@
   const size = ref<SizeProps>('medium');
 
   const basePagination: Pagination = {
-    current: 1,
+    current: 0,
     pageSize: 20,
   };
   const pagination = reactive({
@@ -220,6 +228,7 @@
     {
       title: '性别',
       dataIndex: 'sex',
+      slotName: 'sex',
     },
     {
       title: '手机号码',
@@ -236,6 +245,7 @@
     {
       title: '学历',
       dataIndex: 'education',
+      slotName: 'education',
     },
     {
       title: '党员类型',
@@ -244,6 +254,7 @@
     {
       title: '状态',
       dataIndex: 'flag',
+      slotName: 'flag',
     },
     {
       title: '党费缴纳到',
@@ -256,73 +267,73 @@
     },
   ]);
   // 11.博士研究生 10.硕士研究生 21.大学 22.大专 61.高中 41.中专 71.初中 81.小学 90.文盲"
-  const educationTypeOptions = computed<SelectOptionData[]>(() => [
-    {
+  const educationTypeOptions: any = ref({
+    11: {
       label: '博士研究生',
       value: '11',
     },
-    {
+    10: {
       label: '硕士研究生',
       value: '10',
     },
-    {
+    21: {
       label: '大学',
       value: '21',
     },
-    {
+    22: {
       label: '大专',
       value: '22',
     },
-    {
+    61: {
       label: '高中',
       value: '61',
     },
-    {
+    41: {
       label: '中专',
       value: '41',
     },
-    {
+    71: {
       label: '初中',
       value: '71',
     },
-    {
+    81: {
       label: '小学',
       value: '81',
     },
-    {
+    90: {
       label: '文盲',
       value: '90',
     },
-  ]);
-  const sexTypeOptions = computed<SelectOptionData[]>(() => [
-    {
+  });
+  const sexTypeOptions: any = ref({
+    '1': {
       label: '男',
       value: '1',
     },
-    {
+    '0': {
       label: '女',
       value: '0',
     },
-  ]);
+  });
   // 0-正常，1-出党，2-死亡，3-停止党籍"
-  const flagTypeOptions = computed<SelectOptionData[]>(() => [
-    {
+  const flagTypeOptions: any = ref({
+    0: {
       label: '正常',
       value: '0',
     },
-    {
+    1: {
       label: '出党',
       value: '1',
     },
-    {
+    2: {
       label: '死亡',
       value: '2',
     },
-    {
+    3: {
       label: '停止党籍',
       value: '3',
     },
-  ]);
+  });
   const fetchData = async (
     params: PolicyParams = { current: 0, pageSize: 20 }
   ) => {

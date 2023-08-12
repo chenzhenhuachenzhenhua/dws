@@ -135,7 +135,7 @@
         @page-change="onPageChange"
       >
         <template #operations>
-          <a-button v-permission="['admin']" type="text" size="small">
+          <a-button type="text" size="small">
             {{ $t('searchTable.columns.operations.view') }}
           </a-button>
         </template>
@@ -184,7 +184,7 @@
   // 创建组织单位是否可见
   const visible = ref(false);
   const basePagination: Pagination = {
-    current: 1,
+    current: 0,
     pageSize: 20,
   };
   const pagination = reactive({
@@ -301,7 +301,7 @@
     },
   ]);
   const fetchData = async (
-    params: PolicyParams = { current: 1, pageSize: 20 }
+    params: PolicyParams = { current: 0, pageSize: 20 }
   ) => {
     setLoading(true);
     try {

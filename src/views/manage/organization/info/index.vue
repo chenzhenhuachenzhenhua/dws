@@ -125,7 +125,7 @@
         @page-change="onPageChange"
       >
         <template #operations>
-          <a-button v-permission="['admin']" type="text" size="small">
+          <a-button type="text" size="small">
             {{ $t('searchTable.columns.operations.view') }}
           </a-button>
         </template>
