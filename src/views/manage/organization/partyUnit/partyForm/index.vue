@@ -5,107 +5,78 @@
         <a-card class="general-card">
           <template #title> 基本信息 </template>
           <a-row :gutter="80">
+            <!-- 所属组织名称 -->
             <a-col :span="12">
-              <a-form-item :label="'所属组织名称'" field="video.mode">
-                <a-select :placeholder="$t('groupForm.placeholder.video.mode')">
-                  <a-option value="custom">自定义</a-option>
-                  <a-option value="mode1">模式1</a-option>
-                  <a-option value="mode2">模式2</a-option>
-                </a-select>
+              <a-form-item label="所属组织名称" field="party.name" :rules="[{ required: true, message: '所属组织名称为必填项' }]">
+                <a-input v-model="formData.party.name"
+                  @click="getRelationship('party', { type: 'unit_membership', title: '选择单位隶属关系' })" readonly
+                  placeholder="请选择所属组织名称">
+                </a-input>
               </a-form-item>
             </a-col>
+            <!-- 单位名称 -->
             <a-col :span="12">
-              <a-form-item
-                :label="'单位名称'"
-                field="video.acquisition.resolution"
-              >
-                <a-select
-                  :placeholder="
-                    $t('groupForm.placeholder.video.acquisition.resolution')
-                  "
-                >
-                  <a-option value="resolution1">分辨率1</a-option>
-                  <a-option value="resolution2">分辨率2</a-option>
-                  <a-option value="resolution3">分辨率3</a-option>
-                </a-select>
+              <a-form-item label="单位名称" field="name" :rules="[{ required: true, message: '单位名称为必填项' }]">
+                <a-input v-model="formData.name" placeholder="请输入单位名称"></a-input>
               </a-form-item>
             </a-col>
           </a-row>
           <a-row :gutter="80">
+            <!-- 单位隶属关系 -->
             <a-col :span="12">
-              <a-form-item
-                :label="'单位隶属关系'"
-                field="resolution"
-              >
-              <a-input v-model="formData.resolution.label" @click="getRelationship('resolution', {type: 0, title: '选择单位隶属关系'})" readonly :placeholder="$t('groupForm.placeholder.video.encoding.rate.min')" add-after="bps">
-                  <template #append> bps </template>
+              <a-form-item label="单位隶属关系" field="unitRelation.name" :rules="[{ required: true, message: '单位隶属关系为必填项' }]" :validate-trigger="['change','input']">
+                <a-input v-model="formData.unitRelation.name"
+                  @click="getRelationship('unitRelation', { type: 'unit_membership', title: '选择单位隶属关系' })" readonly
+                  placeholder="请选择单位隶属关系">
                 </a-input>
               </a-form-item>
             </a-col>
+            <!-- 单位属性 -->
             <a-col :span="12">
-              <a-form-item :label="'单位属性'" field="video.encoding.rate.min">
-                <a-input
-                  v-model="formData.unitAttribute.label" @click="getRelationship('unitAttribute', {type: 1, title: '选择单位属性'})" readonly
-                  :placeholder="
-                    $t('groupForm.placeholder.video.encoding.rate.min')
-                  "
-                  add-after="bps"
-                >
-                  <template #append> bps </template>
+              <a-form-item label="单位属性" field="nature.name" :rules="[{ required: true, message: '单位属性为必填项' }]">
+                <a-input v-model="formData.nature.name"
+                  @click="getRelationship('nature', { type: 'unit_property', title: '选择单位属性' })" readonly
+                  placeholder="请选择单位属性">
                 </a-input>
               </a-form-item>
             </a-col>
           </a-row>
           <a-row :gutter="80">
+            <!-- 所属行业 -->
             <a-col :span="12">
-              <a-form-item
-                :label="'所属行业'"
-                field="video.encoding.rate.default"
-              >
-                <a-input
-                  :placeholder="
-                    $t('groupForm.placeholder.video.encoding.rate.default')
-                  "
-                >
-                  <template #append> bps </template>
+              <a-form-item label="所属行业" field="industry.name" :rules="[{ required: true, message: '所属行业为必填项' }]">
+                <a-input v-model="formData.industry.name"
+                  @click="getRelationship('industry', { type: 'SSHY', title: '选择所属行业' })" readonly
+                  placeholder="请选择所属行业">
                 </a-input>
               </a-form-item>
             </a-col>
+            <!-- 经济类型 -->
             <a-col :span="12">
-              <a-form-item :label="'经济类型'" field="video.encoding.frameRate">
-                <a-input
-                  :placeholder="
-                    $t('groupForm.placeholder.video.encoding.frameRate')
-                  "
-                >
-                  <template #append> fps </template>
+              <a-form-item label="经济类型" field="economicType.name" :rules="[{ required: true, message: '经济类型为必填项' }]">
+                <a-input v-model="formData.economicType.name"
+                  @click="getRelationship('economicType', { type: 'economy_type', title: '选择经济类型' })" readonly
+                  placeholder="请选择经济类型">
                 </a-input>
               </a-form-item>
             </a-col>
           </a-row>
           <a-row :gutter="80">
+            <!-- 企业规模 -->
             <a-col :span="12">
-              <a-form-item
-                :label="'企业规模'"
-                field="video.encoding.rate.default"
-              >
-                <a-input
-                  :placeholder="
-                    $t('groupForm.placeholder.video.encoding.rate.default')
-                  "
-                >
-                  <template #append> bps </template>
+              <a-form-item label="企业规模" field="companySize.name" :rules="[{ required: true, message: '企业规模为必填项' }]">
+                <a-input v-model="formData.companySize.name"
+                  @click="getRelationship('companySize', { type: 'company_size', title: '选择企业规模' })" readonly
+                  placeholder="请选择企业规模">
                 </a-input>
               </a-form-item>
             </a-col>
+            <!-- 企业类型 -->
             <a-col :span="12">
-              <a-form-item :label="'企业类型'" field="video.encoding.frameRate">
-                <a-input
-                  :placeholder="
-                    $t('groupForm.placeholder.video.encoding.frameRate')
-                  "
-                >
-                  <template #append> fps </template>
+              <a-form-item label="企业类型" field="businessType.name" :rules="[{ required: true, message: '企业类型为必填项' }]">
+                <a-input v-model="formData.businessType.name"
+                  @click="getRelationship('businessType', { type: 'business_type', title: '选择企业类型' })" readonly
+                  placeholder="请选择企业类型">
                 </a-input>
               </a-form-item>
             </a-col>
@@ -114,55 +85,36 @@
         <a-card class="general-card">
           <template #title> 联系信息 </template>
           <a-row :gutter="80">
+            <!-- 联系人 -->
             <a-col :span="12">
-              <a-form-item :label="'联系人'" field="audio.encoding.channels">
-                <a-input
-                  :placeholder="
-                    $t('groupForm.placeholder.audio.encoding.channels')
-                  "
-                >
-                  <template #append> bps </template>
-                </a-input>
+              <a-form-item label="联系人" field="contact">
+                <a-input v-model="formData.contact" placeholder="请输入联系人"></a-input>
               </a-form-item>
             </a-col>
+            <!-- 电话 -->
             <a-col :span="12">
-              <a-form-item :label="'电话'" field="audio.encoding.channels">
-                <a-input
-                  :placeholder="
-                    $t('groupForm.placeholder.audio.encoding.channels')
-                  "
-                >
-                  <template #append> bps </template>
-                </a-input>
+              <a-form-item label="电话" field="telephone">
+                <a-input v-model="formData.telephone" placeholder="请输入电话"></a-input>
               </a-form-item>
             </a-col>
           </a-row>
           <a-row :gutter="80">
-            <a-col :span="8">
-              <a-form-item
-                :label="$t('groupForm.form.label.audio.encoding.rate')"
-                field="audio.encoding.rate"
-              >
-                <a-input
-                  :placeholder="$t('groupForm.placeholder.audio.encoding.rate')"
-                >
-                  <template #append> bps </template>
-                </a-input>
+            <!-- 联系手机 -->
+            <a-col :span="12">
+              <a-form-item label="联系手机" field="cellphone">
+                  <a-input v-model="formData.cellphone" placeholder="请输入联系手机"></a-input>
+                </a-form-item>
+            </a-col>
+            <!-- 单位地址 -->
+            <a-col :span="12">
+              <a-form-item label="单位地址" field="address">
+                <a-input v-model="formData.address" placeholder="请输入单位地址"></a-input>
               </a-form-item>
             </a-col>
-
-            <a-col :span="8">
-              <a-form-item
-                :label="$t('groupForm.form.label.audio.encoding.profile')"
-                field="audio.encoding.profile"
-              >
-                <a-input
-                  :placeholder="
-                    $t('groupForm.placeholder.audio.encoding.profile')
-                  "
-                >
-                  <template #append> fps </template>
-                </a-input>
+            <!-- 单位地址 -->
+            <a-col :span="12">
+              <a-form-item label="单位邮编" field="postcode">
+                <a-input v-model="formData.postcode" placeholder="请输入单位邮编"></a-input>
               </a-form-item>
             </a-col>
           </a-row>
@@ -185,55 +137,64 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref, inject } from 'vue';
-  import { FormInstance } from '@arco-design/web-vue/es/form';
-  import useLoading from '@/hooks/loading';
-  // import treeSelectDialog from '@/components/tree-select-dialog/index.vue';
+import { ref, inject, onBeforeMount } from 'vue';
+import { FormInstance } from '@arco-design/web-vue/es/form';
+import useLoading from '@/hooks/loading';
 
-  const formData: any = ref({
-    resolution: {label: '', value: ''},
-    unitAttribute: {label: '', value: ''}
-  });
-  const formRef = ref<FormInstance>();
-  const { loading, setLoading } = useLoading();
-  const onSubmitClick = async () => {
-    const res = await formRef.value?.validate();
-    if (!res) {
-      setLoading(true);
-    }
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  };
-  const openTreeSelectDialogFunc = inject('openTreeSelectDialog') as any;
-  const getRelationship = async (field: any, type?: any) => {
-    const formVal = await openTreeSelectDialogFunc(type);
-    console.log('拿到模态框返回的数据----', formVal);
-    if (!formVal) return;
-    formData.value[field] = formVal
+const formData: any = ref({
+  party: { name: '', id: '' }, // 所属组织id
+  name: '', // 单位名称
+  unitRelation: { name: '', id: '' }, // 单位隶属关系
+  nature: { name: '', id: '' }, // 单位属性
+  industry: { name: '', id: '' }, // 所属行业
+  companySize: { name: '', id: '' }, // 企业规模
+  economicType: { name: '', id: '' }, // 经济类型
+  businessType: { name: '', id: '' }, // 企业类型
+  contact: '', // 联系人
+  telephone: '', // 电话
+  cellphone: '', // 联系手机
+  address: '', // 单位地址
+  postcode: '', // 单位邮编
+});
+
+const partyList = ref<Array<{id: number, name: string}>>([])
+const formRef = ref<FormInstance>();
+const { loading, setLoading } = useLoading();
+const onSubmitClick = async () => {
+  const res = await formRef.value?.validate();
+  if (!res) {
+    setLoading(true);
   }
+  setTimeout(() => {
+    setLoading(false);
+  }, 1000);
+};
+const openTreeSelectDialogFunc = inject('openTreeSelectDialog') as any;
+const getRelationship = async (field: any, params?: any) => {
+  const formVal = await openTreeSelectDialogFunc(params);
+  if (!formVal) return;
+  formData.value[field] = formVal
+  formRef.value?.validateField(`${field}.name`)
+}
+onBeforeMount(() => {
+
+})
 </script>
 
-<!-- <script lang="ts">
-  export default {
-    name: 'Group',
-  };
-</script> -->
-
 <style scoped lang="less">
-  .container {
-    padding: 20px;
-    overflow: hidden;
-  }
+.container {
+  padding: 20px;
+  overflow: hidden;
+}
 
-  .actions {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 60px;
-    padding: 14px 20px 14px 0;
-    background: var(--color-bg-2);
-    text-align: right;
-  }
+.actions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60px;
+  padding: 14px 20px 14px 0;
+  background: var(--color-bg-2);
+  text-align: right;
+}
 </style>

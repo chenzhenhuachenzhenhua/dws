@@ -13,7 +13,7 @@ export const ApiUrl = {
     queryOrgList: `${ApiHost}/admin/party/org/list`,
     queryPartyUnitList: `${ApiHost}/admin/party/partyUnit/page`, // 组织单位
     queryMemberList: `${ApiHost}/admin/party/manage/page`, // 组织单位
-    queryPartyTreeDataSelect: `${ApiHost}/admin/party/org/treeData`, // 上级党组织
+    queryPartyTreeDataSelect: `${ApiHost}/admin/dic/type`, // 字典
   },
   // 党务中心
   party: {},

@@ -31,13 +31,13 @@
   // 控制弹框显示隐藏
   const treeSelectVisible = ref(false);
   // 关闭弹框的回调
-  const treeSelectCallback = (value?: string) => {
+  const treeSelectCallback = (value?: any) => {
     treeSelectVisible.value = false;
     // eslint-disable-next-line no-unused-expressions
     resolveFn.value && resolveFn.value(value);
   }
   // 注册全局依赖
-  provide('openTreeSelectDialog', (params: object) =>  {
+  provide('openTreeSelectDialog', (params: any) =>  {
     options.value = params;
     treeSelectVisible.value = true;
     return new Promise((resolve) => {
